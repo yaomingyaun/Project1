@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".home.activity.Commoditytivity">
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_300"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/comm_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="商品"/>
+            <TextView
+                android:id="@+id/comm_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已售"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/comm_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ff0000"
+            android:text="价格"/>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <TextView
+
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+            />
+           <ImageView
+               android:id="@+id/comm_add"
+               android:layout_width="@dimen/dp_60"
+               android:layout_height="@dimen/dp_50"
+               android:layout_marginLeft="@dimen/dp_300"
+               android:background="@mipmap/common_btn_add_n_hdpi"/>
+       </LinearLayout>
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</ScrollView>

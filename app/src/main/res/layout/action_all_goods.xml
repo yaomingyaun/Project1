@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/dd_icon"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_150"
+            android:background="@drawable/pppp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/dd_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/dd_icon"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="名称"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/dd_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ff0000"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_40"
+
+                    android:text="价格"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/b1"
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_toRightOf="@id/dd_price"
+                        android:layout_marginTop="@dimen/dp_30"
+                        android:text="+"/>
+                    <TextView
+                        android:id="@+id/dd_num"
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/b1"
+                        android:layout_marginTop="@dimen/dp_30"
+                        android:text=""/>
+                    <Button
+                        android:id="@+id/b2"
+                        android:layout_width="@dimen/dp_30"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_toRightOf="@id/dd_num"
+                        android:layout_marginTop="@dimen/dp_30"
+
+                        android:text="-"/>
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_30"
+        app:cardCornerRadius="@dimen/dp_10">
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:id="@+id/location_name"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="@dimen/dp_5"
+               android:layout_marginRight="@dimen/dp_5"
+               android:text="收件人"/>
+           <TextView
+                android:id="@+id/location_phone"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+                android:layout_alignRight="@id/location_name"
+                    android:layout_marginRight="@dimen/dp_20"
+               android:text="手机号"/>
+
+           <TextView
+               android:id="@+id/location"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="@dimen/dp_5"
+               android:layout_marginRight="@dimen/dp_5"
+                android:layout_below="@id/location_name"
+               android:text="地址"/>
+           <View
+               android:id="@+id/location_v1"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/dp_1"
+               android:background="#888888"
+               android:layout_marginLeft="@dimen/dp_5"
+               android:layout_marginRight="@dimen/dp_5"
+               android:layout_below="@id/location"
+               />
+           <CheckBox
+               android:id="@+id/location_moren"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="@dimen/dp_5"
+               android:layout_marginRight="@dimen/dp_5"
+               android:layout_below="@id/location_v1"/>
+
+           <Button
+               android:id="@+id/location_updata"
+               android:layout_width="@dimen/dp_50"
+               android:layout_height="@dimen/dp_30"
+               android:layout_marginTop="@dimen/dp_5"
+               android:background="@drawable/login_but"
+                 android:layout_alignRight="@id/location_moren"
+                android:layout_marginRight="@dimen/dp_70"
+               android:layout_below="@id/location_v1"
+               android:text="修改"/>
+
+           <Button
+               android:id="@+id/location_del"
+               android:layout_width="@dimen/dp_50"
+               android:layout_height="@dimen/dp_30"
+               android:layout_marginTop="@dimen/dp_5"
+               android:layout_marginRight="@dimen/dp_10"
+               android:background="@drawable/login_but"
+               android:layout_alignRight="@id/location_moren"
+               android:layout_below="@id/location_v1"
+               android:text="删除"/>
+
+       </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/zuji"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        app:cardCornerRadius="@dimen/dp_10">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/dp_10"
+            android:id="@+id/zuji_linear"
+            android:layout_height="wrap_content">
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/footr_icon"
+                android:layout_width="@dimen/dp_170"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_centerHorizontal="true"
+                android:layout_height="@dimen/dp_150" />
+            <TextView
+                android:id="@+id/footr_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_below="@id/footr_icon"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="名称"/>
+
+            <TextView
+                android:id="@+id/footr_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/footr_title"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:textColor="#ff0000"
+
+                android:text="价格"/>
+            <TextView
+                android:id="@+id/footr_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/footr_title"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_10"
+                android:text="浏览数量1111"/>
+            <TextView
+                android:id="@+id/footr_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/footr_price"
+
+
+                android:text="日期"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
