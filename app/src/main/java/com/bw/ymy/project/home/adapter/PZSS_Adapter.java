@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  yao
- *   热销生活的adapter的
+ *
+ *   品质生活生活的adapter的
  *
  */
 public class PZSS_Adapter extends RecyclerView.Adapter<PZSS_Adapter.ViewHolder>{

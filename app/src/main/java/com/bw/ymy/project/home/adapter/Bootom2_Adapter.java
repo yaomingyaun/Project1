@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  yao
- *   点击查看更多
+ *
+ *   二级列表
  *
  */
 public class Bootom2_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{

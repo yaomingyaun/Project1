@@ -41,7 +41,7 @@ public class IPresenter implements Presnenter {
 
             @Override
             public void onFail(String error) {
-            iView.onSuccess(error);
+
             }
         });
     }
@@ -61,7 +61,7 @@ public class IPresenter implements Presnenter {
             }
         });
     }
-
+    //put
     @Override
     public void put(String url, Map<String, String> map, Class clazz) {
         iModel.put(url, map, clazz, new MyCallBack() {
@@ -76,9 +76,32 @@ public class IPresenter implements Presnenter {
         });
     }
 
+    @Override
+    public void getFile(String url, Map<String, String> map, Class clazz) {
+        iModel.getFile(url, map, clazz, new MyCallBack() {
+            @Override
+            public void Onsuccess(Object data) {
+                iView.onSuccess(data);
+            }
+
+            @Override
+            public void onFail(String error) {
+            iView.onSuccess(error);
+            }
+        });
+    }
+
     public  void  detach()
     {
-        iModel=null;
-        iView=null;
+        if (iModel!=null)
+        {
+            iModel=null;
+        }
+        if(iView!=null)
+        {
+            iView=null;
+        }
+
+
     }
 }

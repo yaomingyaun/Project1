@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="1"
+    android:background="#fff"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,6 +13,8 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_marginTop="@dimen/dp_10"
+           android:layout_marginLeft="@dimen/dp_20"
+           android:layout_marginRight="@dimen/dp_20"
            android:orientation="horizontal">
            <ImageView
                android:id="@+id/home_pop"
@@ -23,7 +26,7 @@
                android:layout_width="@dimen/dp_40"
                android:layout_height="@dimen/dp_40"
                android:visibility="gone"
-               android:background="@mipmap/common_nav_btn_back_n_hdpi"/>
+               android:background="@drawable/q"/>
            <EditText
                android:id="@+id/home_search"
                android:layout_width="match_parent"
@@ -38,29 +41,43 @@
                android:layout_width="@dimen/dp_50"
                android:layout_height="@dimen/dp_50"
                android:layout_marginLeft="@dimen/dp_5"
-               android:background="@mipmap/common_nav_btn_search"/>
+               android:background="@drawable/sou"/>
            <Button
                android:id="@+id/home_but1"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:visibility="gone"
+               android:shadowRadius="20"
                android:text="搜索"/>
        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/top_RecyclerView"
-            android:visibility="gone"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/bootom_RecyclerView"
-            android:visibility="gone"
+            android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
         <com.jcodecraeer.xrecyclerview.XRecyclerView
             android:id="@+id/serach_XRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/mei"
+                android:layout_width="@dimen/dp_105"
+                android:layout_height="@dimen/dp_90"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/dp_80"
+                android:background="@mipmap/meiyoushop"/>
+            <TextView
+                android:id="@+id/mei1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:textSize="@dimen/sp_15"
+                android:text="抱歉，没有找到商品额…"/>
 
         <com.stx.xhb.xbanner.XBanner
             android:id="@+id/xbanner"
@@ -68,17 +85,19 @@
             android:layout_gravity="center"
             android:clipChildren="false"
             app:isClipChildrenMode="true"
+            app:clipChildrenLeftRightMargin="@dimen/dp_50"
             android:layout_height="@dimen/dp_200"/>
 
         <RelativeLayout
             android:id="@+id/home_rxxp"
-            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_30"
             android:layout_width="match_parent"
+            android:layout_margin="@dimen/dp_10"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/sell"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_20"
+                android:layout_height="@dimen/dp_30"
                 android:background="@mipmap/bg_rxxp_syf"
                 android:text="热销商品"
                 android:textColor="#FFC0CB"
@@ -101,13 +120,14 @@
 
         <RelativeLayout
             android:id="@+id/home_mlss"
-            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_10"
             android:layout_width="match_parent"
+            android:layout_margin="@dimen/dp_10"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/fa"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_20"
+                android:layout_height="@dimen/dp_30"
                 android:background="@mipmap/bg_mlss_syf"
                 android:text="魔丽时尚"
                 android:textColor="#F08080"
@@ -131,11 +151,12 @@
             android:id="@+id/home_pzsh"
             android:layout_marginTop="@dimen/dp_5"
             android:layout_width="match_parent"
+            android:layout_margin="@dimen/dp_10"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/live"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_20"
+                android:layout_height="@dimen/dp_30"
                 android:background="@mipmap/bg_pzsh_syf"
                 android:text="品质生活"
                 android:textColor="#FF4500"
@@ -149,12 +170,13 @@
                 android:layout_alignRight="@id/live"/>
 
             <android.support.v7.widget.RecyclerView
-
                 android:id="@+id/PZSH_RecyclerView"
                 android:layout_below="@id/live"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
+        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

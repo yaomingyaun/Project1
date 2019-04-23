@@ -1,7 +1,9 @@
 package com.bw.ymy.project.circle.bean;
 
 import java.util.List;
-
+/** yao
+ * 圈子的Bean类
+ * */
 public class CircleBean {
 
     /**

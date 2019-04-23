@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  yao
- *   热销生活的adapter的
+ *
+ *   top
  *
  */
 public class Top_Adapter extends RecyclerView.Adapter<Top_Adapter.ViewHolder>{

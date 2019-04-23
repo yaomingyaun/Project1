@@ -1,5 +1,6 @@
 package com.bw.ymy.project.order.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,51 +33,35 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class Order extends Fragment implements IView {
-
     @BindView(R.id.all_dingdan)
     ImageView all_dingdan;
-
     @BindView(R.id.all_dfk)
     ImageView all_dfk;
-
-
     @BindView(R.id.wancheng)
     ImageView wancheng;
-
-
     @BindView(R.id.all_dsh)
     ImageView all_dsh;
-
-
     @BindView(R.id.all_dpj)
     ImageView all_dpj;
-
-
-
     @BindView(R.id.goods_recylerview)
     RecyclerView goods_recylerview;
     All_Name_adapter all_adapter;
     int idss;
     int page=1;
     IPresenter iPresenter;
-
+    int id;
+    String orderid;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.action_order, container,false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //绑定
         ButterKnife.bind(this,view);
         iPresenter=new IPresenter(this);
-
-
-
-
-
     }
     //点击
     @OnClick({R.id.all_dingdan,R.id.all_dfk,R.id.wancheng,R.id.all_dsh,R.id.all_dpj})
@@ -93,14 +78,12 @@ public class Order extends Fragment implements IView {
                 break;
             //查看全部订单
             case R.id.all_dfk:
-
                 page=1;
                 idss=1;
                 allManager();
                 lodata(idss);
                 break;
             case R.id.all_dsh:
-
                 page=1;
                 idss=2;
                 allManager();
@@ -113,7 +96,6 @@ public class Order extends Fragment implements IView {
                 lodata(idss);
                 break;
             case R.id.wancheng:
-
                 page=1;
                 idss=9;
                 allManager();
@@ -130,23 +112,21 @@ public class Order extends Fragment implements IView {
             //适配器
         all_adapter=new All_Name_adapter(getContext());
         goods_recylerview.setAdapter(all_adapter);
-
         //点击
         all_adapter.setonclick(new All_Name_adapter.AllNameOnclick() {
             @Override
             public void onclick(AllBean.OrderListBean list) {
                 String orderStatus=list.getOrderStatus();
-
                 int i=Integer.parseInt(orderStatus);
-
+                String orderId = list.getOrderId();
                 switch (i)
                 {
                     //点击去支付
                     case 1:
-                        Map<String,String> map=new HashMap<>();
-                        map.put("orderId",list.getOrderId()+"");
-                        map.put("payType",1+"");
-                        iPresenter.post(Apis.ZHIFU,map,QZF_Bean.class);
+                        Intent intent=new Intent(getContext(),PlayMoneyActivity.class);
+                        intent.putExtra("orderId",orderId);
+
+                        startActivity(intent);
                         break;
                         //点击确认收货
                     case 2:
@@ -154,10 +134,10 @@ public class Order extends Fragment implements IView {
                         map1.put("orderId",list.getOrderId()+"");
                         iPresenter.put(Apis.QSH,map1,QSH_Bean.class);
                         break;
+                  default:break;
                 }
             }
         });
-
 
     }
 
@@ -171,19 +151,10 @@ public class Order extends Fragment implements IView {
         {
             AllBean allBean= (AllBean) data;
             all_adapter.setlist(allBean.getOrderList());
+             id=allBean.getOrderList().get(0).getDetailList().get(0).getCommodityId();
+              orderid=allBean.getOrderList().get(0).getOrderId();
+            //Toast.makeText(getContext(), orderid, Toast.LENGTH_SHORT).show();
 
-        }
-        else if(data instanceof QZF_Bean)
-        {
-            QZF_Bean bean= (QZF_Bean) data;
-
-            if(bean.getMessage().equals("支付成功"))
-            {
-                Toast.makeText(getContext(), "支付成功", Toast.LENGTH_SHORT).show();
-            }else
-            {
-                Toast.makeText(getContext(), "支付失败", Toast.LENGTH_SHORT).show();
-            }
         }
         else if(data instanceof QSH_Bean)
         {
@@ -197,6 +168,10 @@ public class Order extends Fragment implements IView {
                 Toast.makeText(getContext(), "收货失败", Toast.LENGTH_SHORT).show();
             }
         }
-
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        iPresenter.detach();
     }
 }

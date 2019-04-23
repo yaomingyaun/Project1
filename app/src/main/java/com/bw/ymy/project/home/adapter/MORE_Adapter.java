@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  yao
+ *
  *   点击查看更多
  *
  */
@@ -50,7 +51,7 @@ public class MORE_Adapter extends RecyclerView.Adapter<MORE_Adapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view=View.inflate(mcontext,R.layout.action_more_item,null);
+        View view=LayoutInflater.from(mcontext).inflate(R.layout.action_more_item,viewGroup,false);
         return new ViewHolder(view);
     }
 
@@ -59,6 +60,7 @@ public class MORE_Adapter extends RecyclerView.Adapter<MORE_Adapter.ViewHolder>{
         //加载数据
         viewHolder.title.setText(mdata.get(i).getCommodityName());
         viewHolder.price.setText("￥"+mdata.get(i).getPrice()+"");
+        viewHolder.more_num.setText("已售"+mdata.get(i).getSaleNum()+"件");
         Uri uri=Uri.parse(mdata.get(i).getMasterPic());
         viewHolder.icon.setImageURI(uri);
         //点击进入详情
@@ -83,7 +85,7 @@ public class MORE_Adapter extends RecyclerView.Adapter<MORE_Adapter.ViewHolder>{
     class  ViewHolder extends RecyclerView.ViewHolder
     {
         private SimpleDraweeView icon;
-        private TextView title,price;
+        private TextView title,price,more_num;
         private LinearLayout more_linear;
 
         public ViewHolder(@NonNull View itemView) {
@@ -92,6 +94,7 @@ public class MORE_Adapter extends RecyclerView.Adapter<MORE_Adapter.ViewHolder>{
             title=itemView.findViewById(R.id.more_title);
             price=itemView.findViewById(R.id.more_price);
             more_linear=itemView.findViewById(R.id.more_linear);
+            more_num=itemView.findViewById(R.id.more_num);
 
         }
     }

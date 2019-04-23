@@ -20,8 +20,10 @@
             android:layout_below="@id/xzshdz"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/dp_20"
+            android:layout_weight="1"
             app:cardCornerRadius="@dimen/dp_10"
-            android:layout_height="wrap_content">
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_height="match_parent">
 
           <RelativeLayout
               android:id="@+id/be"
@@ -31,7 +33,7 @@
                   android:id="@+id/sjr"
                   android:layout_width="wrap_content"
                   android:layout_height="@dimen/dp_30"
-                  android:layout_marginLeft="@dimen/dp_5"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:gravity="center"
                   android:text="收 件 人："/>
               <EditText
@@ -40,6 +42,7 @@
                   android:layout_height="@dimen/dp_30"
                   android:gravity="center"
                   android:background="@null"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:layout_toRightOf="@id/sjr"
                   android:hint="请输入姓名"
                   android:layout_gravity="center"
@@ -49,8 +52,8 @@
                   android:layout_width="match_parent"
                   android:layout_height="@dimen/dp_1"
                 android:layout_below="@id/sjr"
-                  android:layout_marginRight="@dimen/dp_5"
-                  android:layout_marginLeft="@dimen/dp_5"
+                  android:layout_marginRight="@dimen/dp_20"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:background="#888888"/>
               <TextView
                   android:id="@+id/sjhm"
@@ -59,7 +62,7 @@
                   android:layout_below="@+id/xzshdz_v1"
                   android:layout_marginTop="@dimen/dp_10"
                   android:gravity="center"
-                  android:layout_marginLeft="@dimen/dp_5"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:text="手机号码："/>
               <EditText
                   android:id="@+id/et_phone"
@@ -67,6 +70,7 @@
                   android:layout_height="@dimen/dp_30"
                   android:gravity="center"
                   android:background="@null"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:layout_marginTop="@dimen/dp_10"
                   android:layout_toRightOf="@id/sjhm"
                   android:layout_below="@id/xzshdz_v1"
@@ -80,8 +84,8 @@
                   android:layout_height="@dimen/dp_1"
                   android:layout_below="@id/sjhm"
 
-                  android:layout_marginRight="@dimen/dp_5"
-                  android:layout_marginLeft="@dimen/dp_5"
+                  android:layout_marginRight="@dimen/dp_20"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:background="#888888"/>
               <TextView
                   android:id="@+id/szdq"
@@ -90,13 +94,14 @@
                   android:layout_below="@+id/xzshdz_v2"
                   android:gravity="center"
                   android:layout_marginTop="@dimen/dp_10"
-                  android:layout_marginLeft="@dimen/dp_5"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:text="所在地区："/>
               <TextView
                   android:id="@+id/dizhi"
                   android:layout_width="wrap_content"
                   android:layout_height="@dimen/dp_30"
                   android:gravity="center"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:background="@null"
                   android:layout_marginTop="@dimen/dp_10"
                   android:layout_toRightOf="@id/szdq"
@@ -109,8 +114,8 @@
                   android:layout_width="match_parent"
                   android:layout_height="@dimen/dp_1"
                   android:layout_below="@id/szdq"
-                  android:layout_marginRight="@dimen/dp_5"
-                  android:layout_marginLeft="@dimen/dp_5"
+                  android:layout_marginRight="@dimen/dp_20"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:background="#888888"/>
               <ImageView
                   android:id="@+id/address"
@@ -124,18 +129,19 @@
 
               <TextView
                   android:id="@+id/xxdz"
-                  android:layout_width="@dimen/dp_100"
-                  android:layout_height="@dimen/dp_50"
+                  android:layout_width="wrap_content"
+                  android:layout_height="@dimen/dp_56"
                   android:layout_below="@+id/xzshdz_v3"
                   android:layout_marginTop="@dimen/dp_10"
                   android:gravity="center"
-                  android:layout_marginLeft="@dimen/dp_5"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:text="详细地址："/>
               <EditText
                   android:id="@+id/et_xxdz"
                   android:layout_width="match_parent"
-                  android:layout_height="@dimen/dp_50"
+                  android:layout_height="@dimen/dp_56"
                   android:gravity="center"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:background="@null"
                   android:layout_toRightOf="@id/xxdz"
                   android:layout_below="@id/xzshdz_v3"
@@ -147,16 +153,17 @@
                   android:layout_width="match_parent"
                   android:layout_height="@dimen/dp_1"
                   android:layout_below="@id/xxdz"
-                  android:layout_marginRight="@dimen/dp_5"
-                  android:layout_marginLeft="@dimen/dp_5"
+                  android:layout_marginRight="@dimen/dp_20"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:background="#888888"/>
 
               <TextView
                   android:id="@+id/yb"
                   android:layout_width="wrap_content"
                   android:layout_height="@dimen/dp_30"
-                  android:layout_marginLeft="@dimen/dp_5"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:layout_below="@+id/xzshdz_v4"
+
                   android:layout_marginTop="@dimen/dp_10"
                   android:gravity="center"
                   android:text="邮编："/>
@@ -167,6 +174,7 @@
                   android:gravity="center"
                   android:background="@null"
                   android:layout_toRightOf="@id/yb"
+                  android:layout_marginLeft="@dimen/dp_20"
                   android:hint="请输入邮编"
                  android:maxLength="6"
                   android:layout_marginTop="@dimen/dp_10"
@@ -178,9 +186,9 @@
                   android:layout_width="match_parent"
                   android:layout_height="@dimen/dp_1"
                   android:layout_below="@id/yb"
-                  android:layout_marginRight="@dimen/dp_5"
-                  android:layout_marginLeft="@dimen/dp_5"
-                  android:layout_marginBottom="@dimen/dp_10"
+                  android:layout_marginRight="@dimen/dp_20"
+                  android:layout_marginLeft="@dimen/dp_20"
+                  android:layout_marginBottom="@dimen/dp_20"
                   android:background="#888888"/>
 
           </RelativeLayout>
@@ -188,9 +196,11 @@
 
     <Button
         android:id="@+id/ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="确认"
+        android:layout_width="@dimen/dp_116"
+        android:layout_height="@dimen/dp_50"
+        android:text="确认地址"
+        android:textColor="#ffffff"
+        android:background="@drawable/addplace"
         android:layout_gravity="center"
         />
 

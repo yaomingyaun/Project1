@@ -1,5 +1,6 @@
 package com.bw.ymy.project.my.activity1;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -131,7 +132,20 @@ IPresenter iPresenter;
         if(data instanceof AddBean)
         {
             AddBean addBean= (AddBean) data;
-            Toast.makeText(this, addBean.getMessage()+"", Toast.LENGTH_SHORT).show();
+            if(addBean.getMessage().equals("添加成功"))
+            {
+                Toast.makeText(this, addBean.getMessage()+"", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(NewAddressActivity.this,AddressActivity.class);
+                startActivity(intent);
+            }else
+            {
+                Toast.makeText(this, addBean.getMessage()+"", Toast.LENGTH_SHORT).show();
+            }
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        iPresenter.detach();
     }
 }

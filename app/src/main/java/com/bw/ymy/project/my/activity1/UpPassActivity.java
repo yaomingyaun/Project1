@@ -41,7 +41,6 @@ public class UpPassActivity extends AppCompatActivity implements IView {
 
         ButterKnife.bind(this);
         iPresenter=new IPresenter(this);
-
         //再次输入密码是 大于6位  方可以点击
         //再次输入的密码
         up_pass2.addTextChangedListener(new TextWatcher() {
@@ -58,7 +57,6 @@ public class UpPassActivity extends AppCompatActivity implements IView {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -96,5 +94,10 @@ public class UpPassActivity extends AppCompatActivity implements IView {
                 Toast.makeText(this, bean.getMessage()+"", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        iPresenter.detach();
     }
 }

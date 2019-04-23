@@ -15,6 +15,8 @@ import com.bw.ymy.project.home.bean.HomeBean;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +57,8 @@ public class RXXP_Adapter extends RecyclerView.Adapter<RXXP_Adapter.ViewHolder>{
         viewHolder.price.setText("￥"+mdata.get(i).getPrice()+"");
         Uri uri=Uri.parse(mdata.get(i).getMasterPic());
         viewHolder.icon.setImageURI(uri);
+
+
         //点击进入详情
         viewHolder.linear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +89,6 @@ public class RXXP_Adapter extends RecyclerView.Adapter<RXXP_Adapter.ViewHolder>{
             title=itemView.findViewById(R.id.rxxp_title);
             price=itemView.findViewById(R.id.rxxp_price);
             linear=itemView.findViewById(R.id.rxxp_linear);
-
         }
     }
     //点击监听

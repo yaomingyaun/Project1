@@ -32,7 +32,6 @@ public class MyCircleActivity extends AppCompatActivity  implements IView {
         //绑定
         ButterKnife.bind(this);
         iPresenter=new IPresenter(this);
-
         //网格布局
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -80,4 +79,11 @@ public class MyCircleActivity extends AppCompatActivity  implements IView {
             Mycircle_XRecyclerView.loadMoreComplete();
         }
 
-    }}
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        iPresenter.detach();
+    }
+
+}

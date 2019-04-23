@@ -10,14 +10,18 @@ import com.bw.ymy.project.App.App;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -30,6 +34,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class Refit {
+
 
     private   static  Refit instance;
     //公共的网址
@@ -51,7 +56,7 @@ public class Refit {
     private BaseApi baseApi;
     //构造方法
     //读写拦截器
-    public  Refit()
+    private   Refit()
     {
         HttpLoggingInterceptor httpLoggingInterceptor=new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder=new OkHttpClient.Builder();
@@ -141,6 +146,33 @@ public class Refit {
                     .subscribe(getobserver(listener));
 
         }
+    //上传头像
+    public void postFile(String url, Map<String, String> map,HttpListener listener) {
+        if (map == null) {
+            map = new HashMap<>();
+        }
+        MultipartBody multipartBody = filesToMultipartBody(map);
+
+        baseApi.postFile(url, multipartBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getobserver(listener));
+    }
+
+    //上传头像
+    public static MultipartBody filesToMultipartBody(Map<String,String> map) {
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            File file = new File(entry.getValue());
+            builder.addFormDataPart(entry.getKey(), "图片1.png",
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file));
+        }
+
+        builder.setType(MultipartBody.FORM);
+        MultipartBody multipartBody = builder.build();
+        return multipartBody;
+    }
 
         public Observer getobserver(final HttpListener listener)
         {
@@ -183,12 +215,7 @@ public class Refit {
             return observer;
         }
 
-    public  HttpListener listener;
 
-    public  void  seton(HttpListener httpLis)
-    {
-        this.listener=httpLis;
-    }
 
     public  interface  HttpListener
     {

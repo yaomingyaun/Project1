@@ -28,8 +28,8 @@ public class MoreActivity extends AppCompatActivity implements IView {
     @BindView(R.id.more_xrecyvlerview)
     XRecyclerView more_xrecyvlerview;
     MORE_Adapter more_adapter;
-
     private String commodityId;
+    private String name;
     private int page=1;
     private IPresenter iPresenter;
     @Override
@@ -44,7 +44,6 @@ public class MoreActivity extends AppCompatActivity implements IView {
         //接受传值
         final Intent intent=getIntent();
         commodityId= intent.getStringExtra("commodityId");
-
 
         //创建布局
         lodata(commodityId);
@@ -81,9 +80,7 @@ public class MoreActivity extends AppCompatActivity implements IView {
             public void onRefresh() {
                 page=1;
                 lodata(commodityId);
-
             }
-
             @Override
             public void onLoadMore() {
                 lodata(commodityId);
@@ -95,9 +92,7 @@ public class MoreActivity extends AppCompatActivity implements IView {
     private void lodata(String commodityId) {
 
         iPresenter.get(String.format(Apis.MORE,commodityId,page++),MoreBean.class);
-
     }
-
     @Override
     public void onSuccess(Object data) {
         if(data instanceof MoreBean)
@@ -115,13 +110,11 @@ public class MoreActivity extends AppCompatActivity implements IView {
             more_xrecyvlerview.refreshComplete();
             more_xrecyvlerview.loadMoreComplete();
         }
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         iPresenter.detach();
-
     }
 }

@@ -74,7 +74,7 @@
     <TextView
         android:id="@+id/sing_login"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_30"
+        android:layout_height="@dimen/dp_20"
         android:text="已有账号？立即登录"
         android:textColor="#ffff"
         android:layout_marginTop="@dimen/dp_10"

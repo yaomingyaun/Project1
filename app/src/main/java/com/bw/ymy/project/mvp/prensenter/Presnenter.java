@@ -16,4 +16,6 @@ public interface Presnenter {
     //put
 
     void  put(String url, Map<String,String> map,Class clazz);
+    //file
+    void getFile(String url, Map<String, String> map, Class clazz);
 }

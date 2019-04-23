@@ -28,8 +28,7 @@ public class MyPriceAdapter extends RecyclerView.Adapter<MyPriceAdapter.ViewHold
     }
     public  void  setlist(List<MyPriceBean.ResultBean.DetailListBean> datas)
     {
-        mdata.clear();
-        mdata.addAll(datas);
+       this.mdata=datas;
         notifyDataSetChanged();
     }
 

@@ -1,6 +1,7 @@
 package com.bw.ymy.project.home.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,14 +13,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bw.ymy.project.App.Apis;
+import com.bw.ymy.project.App.Event;
+import com.bw.ymy.project.MainActivity;
 import com.bw.ymy.project.R;
 import com.bw.ymy.project.home.adapter.Bootom2_Adapter;
 import com.bw.ymy.project.home.adapter.Bootom_Adapter;
@@ -41,18 +48,21 @@ import com.bw.ymy.project.mvp.view.IView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.stx.xhb.xbanner.XBanner;
 
-import java.io.BufferedReader;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
+
 
 public class Home extends Fragment implements IView {
-
     @BindView(R.id.xbanner)
     XBanner xbanner;
-
     @BindView(R.id.RXSP_RecyclerView)
     RecyclerView RXSP_RecyclerView;
    private RXXP_Adapter rxsp_adapter;
@@ -94,19 +104,17 @@ public class Home extends Fragment implements IView {
     @BindView(R.id.home_pzsh)
     RelativeLayout home_pzsh;
 
-    @BindView(R.id.bootom_RecyclerView)
-    RecyclerView bootom_RecyclerView;
-    private Bootom_Adapter bootom_adapter;
-
-    @BindView(R.id.top_RecyclerView)
-    RecyclerView top_RecyclerView;
+   private Bootom_Adapter bootom_adapter;
     private Top_Adapter top_adapter;
 
+    PopupWindow popupWindow;
     @BindView(R.id.serach_XRecyclerView)
     XRecyclerView serach_XRecyclerView;
     private SEARCH_Adapter search_adapter;
-
-
+    @BindView(R.id.mei)
+    ImageView mei;
+    @BindView(R.id.mei1)
+    TextView mei1;
 
     int page=1;
     IPresenter iPresenter;
@@ -132,9 +140,8 @@ public class Home extends Fragment implements IView {
         getMLSS();
         //品质生活
         getPZSH();
+        gettop();
     }
-
-
     //点击查看更多
     @OnClick({R.id.rxsp_more,R.id.mlss_more,R.id.pzsh_more,R.id.home_sousuo,R.id.home_back,R.id.home_but1,R.id.home_pop})
     public  void  setmoreclick(View v)
@@ -177,16 +184,7 @@ public class Home extends Fragment implements IView {
                 break;
             case R.id.home_but1:
                 getSearch();
-                getlodata();
-
-                break;
-            case R.id.home_pop:
-                top_RecyclerView.setVisibility(View.VISIBLE);
-                    gettop();
-
-                break;
-            case R.id.all:
-                top_RecyclerView.setVisibility(View.GONE);
+               // getlodata();
                 break;
                 //点击返回
             case R.id.home_back:
@@ -200,71 +198,94 @@ public class Home extends Fragment implements IView {
                 home_mlss.setVisibility(View.VISIBLE);
                 home_pzsh.setVisibility(View.VISIBLE);
                 home_sousuo.setVisibility(View.VISIBLE);
-
                 serach_XRecyclerView.setVisibility(View.GONE);
-
+                break;
                 default:break;
         }
     }
-
-
     //top 加载
     private void gettop() {
 
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
+        //获取pop布局
+         View view=LayoutInflater.from(getContext()).inflate(R.layout.action_pop,null,false);
+          final RecyclerView top_RecyclerView = view.findViewById(R.id.top_RecyclerView);
+        final RecyclerView bootom_RecyclerView = view.findViewById(R.id.bootom_RecyclerView);
+        // 创建PopupWindow对象，其中：
+        // 第一个参数是用于PopupWindow中的View，第二个参数是PopupWindow的宽度，
+        // 第三个参数是PopupWindow的高度，第四个参数指定PopupWindow能否获得焦点
+            popupWindow=new PopupWindow(view,LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
+        // 设置PopupWindow是否能响应外部点击事件
+            popupWindow.setOutsideTouchable(true);
+        // 设置此参数获得焦点，否则无法点击，即：事件拦截消费
+            popupWindow.setFocusable(true);
+        // 实例化一个ColorDrawable颜色
+            ColorDrawable drawable=new ColorDrawable(getContext().getResources().getColor(R.color.province_line_border));
+        // 设置弹出窗体的背景
+             popupWindow.setBackgroundDrawable(drawable);
+            home_pop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    WindowManager.LayoutParams attributes = getActivity().getWindow().getAttributes();
+                    attributes.alpha = 0.5f;
+                    getActivity().getWindow().setAttributes(attributes);
+                    getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                    //位置
+                    popupWindow.showAsDropDown(v,0,25);
+                    LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
+                    layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                    top_RecyclerView.setLayoutManager(layoutManager);
+                    //适配器
+                    top_adapter=new Top_Adapter(getContext());
+                    top_RecyclerView.setAdapter(top_adapter);
+                    iPresenter.get(Apis.TOP,TopBean.class);
+                        //点击一级条目
+                    top_adapter.setOnClickListenter(new Top_Adapter.ClickListenter() {
+                        @Override
+                        public void onClick(int position) {
+                            final String pid=top_adapter.get(position);
+                            LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
+              layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+               bootom_RecyclerView.setLayoutManager(layoutManager);
+              //适配器
+            bootom_adapter=new Bootom_Adapter(getContext());
+             bootom_RecyclerView.setAdapter(bootom_adapter);
+              bootom_RecyclerView.setVisibility(View.VISIBLE);
 
-        top_RecyclerView.setLayoutManager(layoutManager);
-        //适配器
-        top_adapter=new Top_Adapter(getContext());
-        top_RecyclerView.setAdapter(top_adapter);
+              iPresenter.get(String.format(Apis.BOOTOM,pid),BootomBean.class);
+              getbootom(pid);
+              //点击二级条目
+              bootom_adapter.setOnClickListenter(new Bootom_Adapter.ClickListenter() {
+                  @Override
+                  public void onClick(int position) {
+                      String id=bootom_adapter.getid(position);
+                      Intent intent=new Intent(getContext(),Bootom22Activity.class);
+                      intent.putExtra("id",id+"");
+                      startActivity(intent);
+                      popupWindow.dismiss();
+                      WindowManager.LayoutParams attributes = getActivity().getWindow().getAttributes();
+                      attributes.alpha = 1f;
+                      getActivity().getWindow().setAttributes(attributes);
+                  }
+              });
 
-        iPresenter.get(Apis.TOP,TopBean.class);
-
-        //点击传值getbootom
-        top_adapter.setOnClickListenter(new Top_Adapter.ClickListenter() {
-            @Override
-            public void onClick(int position) {
-                String pid=top_adapter.get(position);
-
-                LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
-
-                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-
-                bootom_RecyclerView.setLayoutManager(layoutManager);
-                //适配器
-                bootom_adapter=new Bootom_Adapter(getContext());
-                bootom_RecyclerView.setAdapter(bootom_adapter);
-                bootom_RecyclerView.setVisibility(View.VISIBLE);
-
-                iPresenter.get(String.format(Apis.BOOTOM,pid),BootomBean.class);
-                getbootom(pid);
-                //点击bootom   传值
-                bootom_adapter.setOnClickListenter(new Bootom_Adapter.ClickListenter() {
-                    @Override
-                    public void onClick(int position) {
-
-                        top_RecyclerView.setVisibility(View.GONE);
-                        bootom_RecyclerView.setVisibility(View.GONE);
-                        String  id=bootom_adapter.getid(position);
-                        Intent intent=new Intent(getContext(),Bootom22Activity.class);
-                        intent.putExtra("id",id+"");
-                        startActivity(intent);
-
-                    }
-                });
-            }
-        });
-
+                        }
+                    });
+                }
+            });
+            popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    WindowManager.LayoutParams attributes = getActivity().getWindow().getAttributes();
+                    attributes.alpha = 1f;
+                    getActivity().getWindow().setAttributes(attributes);
+                }
+            });
     }
-
     public  void  getbootom(String pid)
     {
-
         iPresenter.get(String.format(Apis.BOOTOM,pid),Bootom2Bean.class);
     }
-
     private void getlodata() {
         String name=home_search.getText().toString();
         if(name.length()==0)
@@ -272,25 +293,21 @@ public class Home extends Fragment implements IView {
             Toast.makeText(getContext(), "请输入要搜索的内容", Toast.LENGTH_SHORT).show();
         }else
         {
-            iPresenter.get(String.format(Apis.SEARCH,name,page++),SEARCHBean.class);
-            Toast.makeText(getContext(), "暂时无内容", Toast.LENGTH_SHORT).show();
+            mei.setVisibility(View.GONE);
+            mei1.setVisibility(View.GONE);
+            iPresenter.get(String.format(Apis.SEARCH,name,page),SEARCHBean.class);
         }
-
-
     }
-
     private void getSearch() {
         //网格布局
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),2);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         serach_XRecyclerView.setLayoutManager(gridLayoutManager);
-
         search_adapter=new SEARCH_Adapter(getContext());
         serach_XRecyclerView.setAdapter(search_adapter);
         //上拉加载
         serach_XRecyclerView.setPullRefreshEnabled(true);
         serach_XRecyclerView.setLoadingMoreEnabled(true);
-
         search_adapter.setOnClickListenter(new SEARCH_Adapter.ClickListenter() {
             @Override
             public void onClick(int position) {
@@ -300,13 +317,11 @@ public class Home extends Fragment implements IView {
                 startActivity(intent);
             }
         });
-
         serach_XRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
                 page=1;
                 getlodata();
-
             }
 
             @Override
@@ -316,9 +331,6 @@ public class Home extends Fragment implements IView {
         });
         getlodata();
     };
-
-
-
     //品质生活
     private void getPZSH() {
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),2);
@@ -339,7 +351,6 @@ public class Home extends Fragment implements IView {
             }
         });
     }
-
     //魔丽时尚
     private void getMLSS() {
         //创建布局
@@ -362,7 +373,6 @@ public class Home extends Fragment implements IView {
             }
         });
     }
-
     //热销新品
     private void getRXXP() {
                 //创建布局
@@ -372,21 +382,18 @@ public class Home extends Fragment implements IView {
         //适配器
         rxsp_adapter=new RXXP_Adapter(getContext());
         RXSP_RecyclerView.setAdapter(rxsp_adapter);
-
         iPresenter.get(Apis.HOME,HomeBean.class);
-
         //点击进入详情页
         rxsp_adapter.setOnClickListenter(new RXXP_Adapter.ClickListenter() {
             @Override
             public void onClick(int position) {
                 int pid=rxsp_adapter.getid(position);
                 Intent intent=new Intent(getContext(),Commoditytivity.class);
-                intent.putExtra("pid",pid+"");
+                  intent.putExtra("pid",pid+"");
                 startActivity(intent);
             }
         });
     }
-
     @Override
     public void onSuccess(Object data) {
         //XBanner
@@ -400,7 +407,6 @@ public class Home extends Fragment implements IView {
                     XBannerBean.ResultBean bean= (XBannerBean.ResultBean) model;
                     Glide.with(getActivity()).load(bean.getImageUrl()).into((ImageView) view);
                     xbanner.setPageChangeDuration(1000);
-
                 }
             });
         }
@@ -417,18 +423,22 @@ public class Home extends Fragment implements IView {
         else if(data instanceof SEARCHBean)
         {
             SEARCHBean searchBean= (SEARCHBean) data;
-
-
-            if(page==1)
+            List<SEARCHBean.ResultBean> result = searchBean.getResult();
+            if (result.isEmpty())
             {
-                search_adapter.setlist(searchBean.getResult());
-            }else
-            {
-                search_adapter.setmoreadd(searchBean.getResult());
+                mei.setVisibility(View.VISIBLE);
+               mei1.setVisibility(View.VISIBLE);
+            }else {
+                if (page == 1) {
+                    search_adapter.setlist(result);
+                } else {
+                    search_adapter.setmoreadd(result);
+                }
+                page++;
+                serach_XRecyclerView.refreshComplete();
+                serach_XRecyclerView.loadMoreComplete();
             }
-            page++;
-            serach_XRecyclerView.refreshComplete();
-            serach_XRecyclerView.loadMoreComplete();
+
         }
         else  if(data instanceof TopBean)
         {

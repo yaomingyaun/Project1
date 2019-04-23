@@ -16,7 +16,9 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/** yao
+ * 二级列表里面的数据
+ * */
 public class Bootom22Activity extends AppCompatActivity implements IView {
 
     @BindView(R.id.bootom2_XRecyclerView)
@@ -94,5 +96,11 @@ public class Bootom22Activity extends AppCompatActivity implements IView {
             bootom2_XRecyclerView.loadMoreComplete();
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        iPresenter.detach();
     }
 }

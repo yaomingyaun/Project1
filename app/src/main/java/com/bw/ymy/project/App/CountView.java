@@ -3,7 +3,7 @@ package com.bw.ymy.project.App;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.EditText;
+
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,17 +16,10 @@ import com.bw.ymy.project.shopping_car.activity.activity.bean.GoodBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class CountView extends RelativeLayout implements View.OnClickListener{
-
-
     private ImageView add_view;
-
     private ImageView jian_view;
-
     private TextView num_view;
     private   Context context;
 
@@ -34,8 +27,6 @@ public class CountView extends RelativeLayout implements View.OnClickListener{
         super(context);
         init(context);
     }
-
-
 
     public CountView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -50,9 +41,8 @@ public class CountView extends RelativeLayout implements View.OnClickListener{
 
     private void init(Context context) {
         this.context=context;
-
         View view=View.inflate(context,R.layout.action_goods_view,null);
-            add_view=view.findViewById(R.id.add_view);
+        add_view=view.findViewById(R.id.add_view);
         jian_view=view.findViewById(R.id.jian_view);
         num_view=view.findViewById(R.id. num_view);
         addView(view);
@@ -65,13 +55,27 @@ public class CountView extends RelativeLayout implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_view:
-                count++;
+               if(count<20)
+               {
+                   count++;
+                   if(mShopCallBackListener!=null)
+                   {
+                       mShopCallBackListener.callBack(count);
+                   }
+               }else
+               {
+                   Toast.makeText(context, "限购20件", Toast.LENGTH_SHORT).show();
+               }
                 num_view.setText(count + "");
                 list.get(position).setCount(count);
                 break;
             case R.id.jian_view:
                 if (count > 1) {
                     count--;
+                    if(mShopCallBackListener!=null)
+                    {
+                        mShopCallBackListener.callBack(count);
+                    }
                 } else {
                     Toast.makeText(context, "数量最少为1", Toast.LENGTH_SHORT).show();
                 }
@@ -94,6 +98,14 @@ public class CountView extends RelativeLayout implements View.OnClickListener{
         num_view.setText(count+"");
 
     }
+    private ShopCallBackListener mShopCallBackListener;
 
+    public void setListener(ShopCallBackListener listener) {
+        this.mShopCallBackListener = listener;
+    }
+
+    public interface ShopCallBackListener {
+        void callBack(int position);
+    }
 
 }

@@ -118,4 +118,35 @@ public class IModel implements Model {
             }
         });
     }
+
+    @Override
+    public void getFile(String urlstr, Map<String, String> map, final Class clazz, final MyCallBack callBack) {
+        Refit.getInstance().postFile(urlstr, map, new Refit.HttpListener() {
+            @Override
+            public void onsuccess(String data) {
+                try {
+                    Object o=new Gson().fromJson(data,clazz);
+                    if(callBack!=null)
+                    {
+                        callBack.Onsuccess(o);
+                    }
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                    if(callBack!=null)
+                    {
+                        callBack.onFail(e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFail(String error) {
+                if(callBack!=null)
+                {
+                    callBack.onFail(error);
+                }
+            }
+        });
+    }
 }

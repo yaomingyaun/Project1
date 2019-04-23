@@ -36,7 +36,8 @@
         <activity android:name=".my.activity1.NewAddressActivity" />
         <activity android:name=".my.activity1.UPaddressActivity" />
         <activity android:name=".my.activity1.MyPriceActivity" />
-        <activity android:name=".shopping_car.activity.activity.activity.JSActivity"></activity>
+        <activity android:name=".shopping_car.activity.activity.activity.JSActivity" />
+        <activity android:name=".order.activity.PlayMoneyActivity"></activity>
     </application>
 
 </manifest>

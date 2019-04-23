@@ -31,10 +31,8 @@ public class MyFooterActivity extends AppCompatActivity implements IView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_footer);
-
         //绑定
         ButterKnife.bind(this);
-
         iPresenter=new IPresenter(this);
 
         //加载布局
@@ -69,5 +67,10 @@ public class MyFooterActivity extends AppCompatActivity implements IView {
         {
             Toast.makeText(this, bean.getMessage()+"", Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        iPresenter.detach();
     }
 }

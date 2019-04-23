@@ -3,7 +3,6 @@ package com.bw.ymy.project.shopping_car.activity.activity.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +50,9 @@ public class Shopping_Car extends Fragment implements IView {
 
     @BindView(R.id.shop_sumprice)
     TextView shop_sumprice;
+    double sum=0.00;
+    double totleprice=0.0;
+    int num=0;
     private IPresenter iPresenter;
     @Nullable
     @Override
@@ -65,7 +66,7 @@ public class Shopping_Car extends Fragment implements IView {
         //绑定
         ButterKnife.bind(this,view);
         iPresenter=new IPresenter(this);
-        
+
         goodsmanager();
         //点击商品的
         goods_adapter.setListener(new Goods_Adapter.ShopCallBackListener() {
@@ -89,7 +90,20 @@ public class Shopping_Car extends Fragment implements IView {
                 {
                     shop_qx.setChecked(true);
                 }
-                shop_sumprice.setText("￥"+price);
+                totleprice=price;
+
+                shop_sumprice.setText("共计"+price+"元");
+                shop_sumprice.setTextColor(Color.RED);
+            }
+        });
+
+        goods_adapter.setOnCartListChangeListener(new Goods_Adapter.OnCartListChangeListener() {
+            @Override
+            public void onProducNumberChange(int i, int count, int number) {
+                goods_adapter.ChangeNumber(i,number);
+                sum=goods_adapter.getTotalPrice();
+                num=goods_adapter.getTotalNumber();
+                shop_sumprice.setText("共计"+totleprice+"元");
                 shop_sumprice.setTextColor(Color.RED);
             }
         });
@@ -101,7 +115,6 @@ public class Shopping_Car extends Fragment implements IView {
         goodsView.setLayoutManager(layoutManager);
         goods_adapter=new Goods_Adapter(getContext());
         goodsView.setAdapter(goods_adapter);
-
         iPresenter.get(Apis.GOODS,GoodBean.class);
     }
 List<GoodBean.ResultBean> goobean;
@@ -119,7 +132,6 @@ List<GoodBean.ResultBean> goobean;
                     GoodBean.ResultBean resultBean=goobean.get(i);
 
                     resultBean.setChecked(shop_qx.isChecked());
-
                     price+=resultBean.getPrice()*resultBean.getCount();
                 }
                 if(shop_qx.isChecked())
@@ -133,7 +145,6 @@ List<GoodBean.ResultBean> goobean;
                 break;
         //点击去结算
             case R.id.shop_qjs:
-
                 list=new ArrayList<>();
                 for (int i=0;i<goobean.size();i++)
                 {
@@ -148,9 +159,7 @@ List<GoodBean.ResultBean> goobean;
                     Intent intent=new Intent(getContext(),JSActivity.class);
                       EventBus.getDefault().postSticky(new Event(list,"data"));
                     startActivity(intent);
-
                 }else
-
                 {
                     Toast.makeText(getContext(), "请选择！", Toast.LENGTH_SHORT).show();
                 }

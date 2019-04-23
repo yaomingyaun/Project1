@@ -3,7 +3,9 @@ package com.bw.ymy.project.mvp.retfit;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -26,4 +28,9 @@ public interface BaseApi<T> {
 
   @PUT
   Observable<ResponseBody> put(@Url String url, @QueryMap Map<String,String> map);
+  //post 上传头像 请求方式
+  @POST
+  Observable<ResponseBody> postFile(@Url String url,@Body MultipartBody multipartBody);
+
+
 }

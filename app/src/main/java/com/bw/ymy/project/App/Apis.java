@@ -1,15 +1,16 @@
 package com.bw.ymy.project.App;
 
+//*/
+//      所有接口
+//
+// */
 public class Apis {
     //登录
     public  static  final String Login="user/v1/login";
-
     //注册
     public  static  final String Sing="user/v1/register";
-
     //banner展示列表
     public static  final String XBANNER="commodity/v1/bannerShow";
-
     //展示列表
     public  static  final String HOME="commodity/v1/commodityList";
     //展示圈子列表
@@ -20,7 +21,8 @@ public class Apis {
     public  static  final  String Cancel="circle/verify/v1/cancelCircleGreat?circleId=%d";
     //详情轮播图
     public  static  final String COMM="commodity/v1/findCommodityDetailsById?commodityId=%s";
-
+    //详情
+    public  static  final String PL="commodity/v1/CommodityCommentList?commodityId=%s&page=%d&count=10";
     //点击更多
     public static  final String MORE="commodity/v1/findCommodityListByLabel?labelId=%s&page=%d&count=10";
     //搜索
@@ -52,20 +54,17 @@ public class Apis {
     //新增收货地址
     public  static  final  String UP="user/verify/v1/changeReceiveAddress";
     //我的钱包
-    public  static  final  String  QB="user/verify/v1/findUserWallet?page=1&count=1";
+    public  static  final  String  QB="user/verify/v1/findUserWallet?page=1&count=10";
     //提交订单
     public  static  final  String  TJDD="order/verify/v1/createOrder";
     //查找全部订单
     public static final  String ALL_ORDER="order/verify/v1/findOrderListByStatus?status=%d&page=%d&count=5";
     //查找全部订单
     public static final  String MOREN="user/verify/v1/setDefaultReceiveAddress";
-
     //去支付
     public static final  String ZHIFU="order/verify/v1/pay";
-    //去支付
+    //确认收货
     public static  final String QSH="order/verify/v1/confirmReceipt";
-
-
-
-
+    //上传头像
+    public  static  final  String SCTX="user/verify/v1/modifyHeadPic";
 }

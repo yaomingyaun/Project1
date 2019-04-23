@@ -21,13 +21,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/** yao
+/**
  * 圈子的adapter
  * */
 public class CircleAdapter extends RecyclerView.Adapter<CircleAdapter.ViewHolder> {
     private List<CircleBean.ResultBean> mdata=new ArrayList<>();
     private Context mcontext;
-
     public CircleAdapter(Context context) {
     this. mcontext = context;
 
@@ -41,7 +40,8 @@ public class CircleAdapter extends RecyclerView.Adapter<CircleAdapter.ViewHolder
     @NonNull
     @Override
     public CircleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view=LayoutInflater.from(mcontext).inflate(R.layout.action_circle_item,viewGroup,false);
+
+            View view=LayoutInflater.from(mcontext).inflate(R.layout.action_circle_item,viewGroup,false);
         return new ViewHolder(view);
     }
 
@@ -62,7 +62,6 @@ public class CircleAdapter extends RecyclerView.Adapter<CircleAdapter.ViewHolder
         //日期
         String date = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss").format(new java.util.Date(mdata.get(i).getCreateTime()));
         viewHolder.data.setText(date);
-
     final CircleBean.ResultBean bean=mdata.get(i);
         //判断是否点赞
         if(bean.getWhetherGreat()==1)
@@ -75,7 +74,6 @@ public class CircleAdapter extends RecyclerView.Adapter<CircleAdapter.ViewHolder
             viewHolder.circle_dz.setImageResource(R.mipmap.common_btn_prise_n_hdpi);
         }
 
-
         viewHolder.circle_dz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,23 +83,20 @@ public class CircleAdapter extends RecyclerView.Adapter<CircleAdapter.ViewHolder
               }
             }
         });
-
-
-
     }
-    //点赞的方法
-   public void getGivePraise(int position) {
-        mdata.get(position).setWhetherGreat(1);
-        mdata.get(position).setGreatNum(mdata.get(position).getGreatNum() + 1);
-        notifyDataSetChanged();
-    }
+        //点赞的方法
+       public void getGivePraise(int position) {
+            mdata.get(position).setWhetherGreat(1);
+            mdata.get(position).setGreatNum(mdata.get(position).getGreatNum() + 1);
+            notifyDataSetChanged();
+        }
 
-    //取消点赞的方法
-   public void getCancelPraise(int position) {
-        mdata.get(position).setWhetherGreat(2);
-        mdata.get(position).setGreatNum(mdata.get(position).getGreatNum() - 1);
-        notifyDataSetChanged();
-    }
+        //取消点赞的方法
+       public void getCancelPraise(int position) {
+            mdata.get(position).setWhetherGreat(2);
+            mdata.get(position).setGreatNum(mdata.get(position).getGreatNum() - 1);
+            notifyDataSetChanged();
+        }
     @Override
     public int getItemCount() {
         return mdata.size();
@@ -124,7 +119,9 @@ public class CircleAdapter extends RecyclerView.Adapter<CircleAdapter.ViewHolder
             num=itemView.findViewById(R.id.circle_num);
         }
     }
-    //接口会动啊
+
+
+    //接口
     private OnClickListener listener;
     public void setOnclickListener(OnClickListener listener){
         this.listener=listener;

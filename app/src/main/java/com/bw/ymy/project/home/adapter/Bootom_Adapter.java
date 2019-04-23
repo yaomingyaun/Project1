@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  yao
- *   热销生活的adapter的
+ *  二级列表
  *
  */
 public class Bootom_Adapter extends RecyclerView.Adapter<Bootom_Adapter.ViewHolder>{

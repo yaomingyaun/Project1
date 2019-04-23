@@ -22,7 +22,7 @@ import java.util.List;
 
 /*
  * yao
- *  我的足迹adapter
+ * 我的地址adapter
  * */
 public class MyAddress_Adapter extends RecyclerView.Adapter<MyAddress_Adapter.ViewHolder> {
 

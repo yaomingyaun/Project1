@@ -152,6 +152,10 @@ public class UPaddressActivity extends AppCompatActivity implements IView {
                 Toast.makeText(this, bean.getMessage()+"", Toast.LENGTH_SHORT).show();
             }
         }
-
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        iPresenter.detach();
     }
 }

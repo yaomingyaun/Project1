@@ -6,7 +6,7 @@ import java.util.Map;
 
 import rx.schedulers.Schedulers;
 
-public interface Model {
+public interface Model{
     //post
     void  post(String url, Map<String,String> map, Class clazz, MyCallBack myCallBack);
 
@@ -18,5 +18,6 @@ public interface Model {
 
     //put
     void  put(String url, Map<String,String> map, Class clazz, MyCallBack myCallBack);
-
+    //file 上传头像方法
+    void  getFile(String urlstr, Map<String, String> map, Class clazz, MyCallBack callBack);
 }

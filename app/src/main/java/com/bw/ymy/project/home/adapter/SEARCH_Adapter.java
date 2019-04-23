@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -18,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  yao
- *   点击查看更多
+ *
+ *  搜索
  *
  */
 public class SEARCH_Adapter extends RecyclerView.Adapter<SEARCH_Adapter.ViewHolder>{
@@ -50,7 +51,7 @@ public class SEARCH_Adapter extends RecyclerView.Adapter<SEARCH_Adapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view=View.inflate(mcontext,R.layout.action_search_item,null);
+        View view=LayoutInflater.from(mcontext).inflate(R.layout.action_search_item,viewGroup,false);
         return new ViewHolder(view);
     }
 
@@ -59,6 +60,7 @@ public class SEARCH_Adapter extends RecyclerView.Adapter<SEARCH_Adapter.ViewHold
             //赋值
         viewHolder.title.setText(mdata.get(i).getCommodityName());
         viewHolder.price.setText("￥"+mdata.get(i).getPrice()+"");
+        viewHolder.search_num.setText("已售"+mdata.get(i).getSaleNum()+"");
         Uri uri=Uri.parse(mdata.get(i).getMasterPic());
         viewHolder.icon.setImageURI(uri);
         //点击进入详情
@@ -84,7 +86,7 @@ public class SEARCH_Adapter extends RecyclerView.Adapter<SEARCH_Adapter.ViewHold
     class  ViewHolder extends RecyclerView.ViewHolder
     {
         private SimpleDraweeView icon;
-        private TextView title,price;
+        private TextView title,price,search_num;
         private LinearLayout search_linear;
 
         public ViewHolder(@NonNull View itemView) {
@@ -93,6 +95,7 @@ public class SEARCH_Adapter extends RecyclerView.Adapter<SEARCH_Adapter.ViewHold
             title=itemView.findViewById(R.id.search_title);
             price=itemView.findViewById(R.id.search_price);
             search_linear=itemView.findViewById(R.id.search_linear);
+            search_num=itemView.findViewById(R.id.search_num);
 
         }
     }

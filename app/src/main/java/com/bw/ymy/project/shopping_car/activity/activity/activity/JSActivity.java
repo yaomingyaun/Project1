@@ -42,23 +42,16 @@ public class JSActivity extends AppCompatActivity implements IView {
     @BindView(R.id.pay_RecyclerView)
     RecyclerView pay_RecyclerView;
     private JS_Adapter js_adapter;
-
-
     private List<GoodBean.ResultBean> list;
-
     @BindView(R.id.js_count)
     TextView js_count;
-
-
-
     @BindView(R.id.js_tijiao)
     Button js_tijiao;
     //总价
+    int num=0;
     double  sumprice=0.00;
     private AddRessBean resultBean;
     IPresenter iPresenter;
-
-
     private  int add;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,19 +61,13 @@ public class JSActivity extends AppCompatActivity implements IView {
         //绑定
        ButterKnife.bind(this);
         iPresenter=new IPresenter(this);
-
             //创建布局
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         pay_RecyclerView.setLayoutManager(layoutManager);
         js_adapter=new JS_Adapter(this);
         pay_RecyclerView.setAdapter(js_adapter);
-
-
-
-
         iPresenter.get(Apis.SHDZ,AddRessBean.class);
-
     }
 
     @OnClick({R.id.js_tijiao})
@@ -96,17 +83,11 @@ public class JSActivity extends AppCompatActivity implements IView {
                     lists.add(new TJDD2Bean(bean.getCommodityId(),bean.getCount()));
                 }
                  String    s=new Gson().toJson(lists);
-
                 Map<String,String> map=new HashMap<>();
                 map.put("orderInfo",s);
-
-                Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-
                 map.put("totalPrice",sumprice+"");
                 map.put("addressId",add+"");
-
                 iPresenter.post(Apis.TJDD,map,TJDDBean.class);
-
                 break;
 
                 default:break;
@@ -121,9 +102,19 @@ public class JSActivity extends AppCompatActivity implements IView {
             js_adapter.setlist(list);
 
 
+            js_adapter.setOnCartListChangeListener(new JS_Adapter.OnCartListChangeListener() {
+                @Override
+                public void onProducNumberChange(int i, int count, int number) {
 
+                        js_adapter.ChangeNumber(i,number);
+                        sumprice=js_adapter.getTotalPrice();
+                        num=js_adapter.getTotalNumber();
+                    js_count.setText("共计"+num+"件商品，共计"+sumprice+"元");
+
+                }
+            });
             //金额  价格
-              int num=0;
+
             for (int i=0;i<list.size();i++)
             {
                 GoodBean.ResultBean  bean=list.get(i);
@@ -168,6 +159,7 @@ public class JSActivity extends AppCompatActivity implements IView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        iPresenter.detach();
         //取消注册
         EventBus.getDefault().unregister(this);
     }

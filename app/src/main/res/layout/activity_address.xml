@@ -7,20 +7,29 @@
     android:orientation="vertical"
     tools:context=".my.activity1.AddressActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_40"
+        android:textSize="20sp"
+        android:text="我的收货地址"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/addressRecyclerView"
         android:layout_weight="1"
+        android:layout_marginTop="@dimen/dp_20"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
 
     <Button
         android:id="@+id/newAddress"
-        android:layout_width="@dimen/dp_200"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_30"
         android:layout_gravity="center"
-        android:background="#ff0000"
+        android:background="@drawable/addplace"
         android:textColor="#ffff"
+        android:layout_marginBottom="@dimen/dp_30"
         android:text="新增收货地址"/>
 
 </LinearLayout>

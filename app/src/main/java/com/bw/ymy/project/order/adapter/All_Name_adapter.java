@@ -15,9 +15,6 @@ import com.bw.ymy.project.order.bean.AllBean;
 
 import java.util.ArrayList;
 import java.util.List;
-
-;
-
 /*
  * yao
  *  全部订单adapter
@@ -48,18 +45,13 @@ public class All_Name_adapter extends RecyclerView.Adapter<All_Name_adapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder,final int i) {
-
-
-
         viewHolder.dingdanhao.setText("订单号："+mdata.get(i).getOrderId());
-
 
         //布局
         LinearLayoutManager layoutManager=new LinearLayoutManager(context);
         viewHolder.goodsnamegoods.setLayoutManager(layoutManager);
         All_Goods_adapter all_goods_adapter=new All_Goods_adapter(context,mdata.get(i).getDetailList());
         viewHolder.goodsnamegoods.setAdapter(all_goods_adapter);
-
 
         //点击事件
         viewHolder.but1.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +63,6 @@ public class All_Name_adapter extends RecyclerView.Adapter<All_Name_adapter.View
                 }
             }
         });
-
         String orderStatus = mdata.get(i).getOrderStatus();
         int i1 = Integer.parseInt(orderStatus);
         switch (i1){
@@ -90,13 +81,6 @@ public class All_Name_adapter extends RecyclerView.Adapter<All_Name_adapter.View
             default:
                 break;
         }
-
-
-
-
-
-
-
     }
 
     @Override

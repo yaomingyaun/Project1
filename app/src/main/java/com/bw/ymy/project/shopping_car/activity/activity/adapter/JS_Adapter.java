@@ -60,7 +60,43 @@ public class JS_Adapter extends RecyclerView.Adapter<JS_Adapter.ViewHolder>{
             //商品VIEW
        viewHolder.payView.setData(this,mdata,i);
 
+       viewHolder.payView.setListener(new PayView.ShopCallBackListener() {
+           @Override
+           public void callBack(int position) {
+               if(mOnCartListChangeListener!=null)
+               {
+                   mOnCartListChangeListener.onProducNumberChange(i,mdata.get(i).getCount(),position);
+               }
+           }
+       });
 
+
+
+    }
+    //总价
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for (int x = 0; x < mdata.size(); x++) {
+            double price = mdata.get(x).getPrice();
+            int count = mdata.get(x).getCount();
+            totalPrice += price * count;
+        }
+        return totalPrice;
+    }
+
+    //总数
+    public int getTotalNumber() {
+        int totalNumber = 0;
+        for (int y = 0; y < mdata.size(); y++) {
+            int count = mdata.get(y).getCount();
+            totalNumber += count;
+        }
+        return totalNumber;
+    }
+
+    //改变数量   提交订单页
+    public void ChangeNumber(int i, int number) {
+        mdata.get(i).setCount(number);
 
     }
 
@@ -85,13 +121,17 @@ public class JS_Adapter extends RecyclerView.Adapter<JS_Adapter.ViewHolder>{
 
         }
     }
-    private ShopCallBackListener mShopCallBackListener;
+    //成员变量
+    OnCartListChangeListener mOnCartListChangeListener;
 
-    public void setListener(ShopCallBackListener listener) {
-        this.mShopCallBackListener = listener;
+    //D.方法的set
+    public void setOnCartListChangeListener(OnCartListChangeListener onCartListChangeListener) {
+        mOnCartListChangeListener = onCartListChangeListener;
     }
 
-    public interface ShopCallBackListener {
-        void callBack(List<GoodBean.ResultBean> list);
+    public interface OnCartListChangeListener {
+        //当点击加减按钮的回调
+        void onProducNumberChange(int i, int count, int number);
+
     }
 }

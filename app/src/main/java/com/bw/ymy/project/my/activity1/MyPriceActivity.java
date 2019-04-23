@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bw.ymy.project.App.Apis;
 import com.bw.ymy.project.R;
@@ -13,6 +14,8 @@ import com.bw.ymy.project.mvp.prensenter.IPresenter;
 import com.bw.ymy.project.mvp.view.IView;
 import com.bw.ymy.project.my.adapter.MyPriceAdapter;
 import com.bw.ymy.project.my.bean.MyPriceBean;
+
+import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,12 +25,9 @@ public class MyPriceActivity extends AppCompatActivity  implements IView {
     @BindView(R.id.price_view)
     RecyclerView price_view;
     MyPriceAdapter myPriceAdapter;
-
-    @BindView(R.id.yue)
-    TextView yue;
-
+    @BindView(R.id.myMoney)
+    TextView myMoney;
     IPresenter iPresenter;
-    private  double blance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +47,6 @@ public class MyPriceActivity extends AppCompatActivity  implements IView {
 
         //网路
        iPresenter.get(Apis.QB,MyPriceBean.class);
-
     }
 
     @Override
@@ -57,16 +56,15 @@ public class MyPriceActivity extends AppCompatActivity  implements IView {
             MyPriceBean bean= (MyPriceBean) data;
 
             myPriceAdapter.setlist(bean.getResult().getDetailList());
-           blance = bean.getResult().getBalance();
 
-              String s = String.valueOf(blance);
-            String[] es = s.split("E");
-          yue.setText(es[0]);
-           // yue.setText(blance+"");
-
+          double  blance = bean.getResult().getBalance();
+            myMoney.setText(new DecimalFormat("#").format(blance));
         }
 
-
-
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        iPresenter.detach();
     }
 }

@@ -61,7 +61,7 @@ public class MyZujiAdapter extends RecyclerView.Adapter<MyZujiAdapter.ViewHolder
         //价格
         viewHolder.price.setText("￥"+mdata.get(i).getPrice()+"");
         //浏览数量
-        viewHolder.num.setText("已浏览"+mdata.get(i).getBrowseNum()+"次");
+        viewHolder.num.setText("浏览"+mdata.get(i).getBrowseNum()+"次");
         //日期
         String date = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss").format(new java.util.Date(mdata.get(i).getBrowseTime()));
         viewHolder.data.setText(date);

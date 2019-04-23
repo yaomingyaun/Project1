@@ -1,5 +1,6 @@
 package com.bw.ymy.project.mvp.view;
 
-public interface IView<T> {
-    void  onSuccess(T data);
+public interface IView {
+    void  onSuccess(Object data);
+
 }

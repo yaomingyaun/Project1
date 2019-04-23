@@ -23,6 +23,7 @@
             android:id="@+id/up_pass1"
             android:layout_width="@dimen/dp_200"
             android:layout_height="@dimen/dp_50"
+            android:maxLength="18"
             android:hint="请输入原始密码"/>
         <EditText
             android:id="@+id/up_pass2"

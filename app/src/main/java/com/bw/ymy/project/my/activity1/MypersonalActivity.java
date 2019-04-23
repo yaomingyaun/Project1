@@ -36,10 +36,8 @@ public class MypersonalActivity extends AppCompatActivity  implements IView {
     @BindView(R.id.my_icon)
     SimpleDraweeView my_icon;
 
-
    private EditText up_name;
     private GRZL grzl;
-
     IPresenter iPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +73,8 @@ public class MypersonalActivity extends AppCompatActivity  implements IView {
                             map.put("nickName",name+"");
                             iPresenter.put(Apis.UPName,map,UPName.class);
 
+
+
                         }
                     });
                     builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -102,19 +102,20 @@ public class MypersonalActivity extends AppCompatActivity  implements IView {
              grzl= (GRZL) data;
           String name=  grzl.getResult().getNickName();
           my_name.setText(name);
-
-          String pass=grzl.getResult().getPassword();
-          my_pass.setText(pass);
-
           String icon=grzl.getResult().getHeadPic();
             Uri uri=Uri.parse(icon);
             my_icon.setImageURI(uri);
-
+            iPresenter.get(Apis.GRZLURL,GRZL.class);
         }
         else if(data instanceof UPName)
         {
             UPName upBean= (UPName) data;
             Toast.makeText(this, upBean.getMessage()+"", Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        iPresenter.detach();
     }
 }

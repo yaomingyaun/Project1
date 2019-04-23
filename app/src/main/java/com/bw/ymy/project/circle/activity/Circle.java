@@ -7,13 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bw.ymy.project.App.Apis;
 import com.bw.ymy.project.R;
 import com.bw.ymy.project.circle.adapter.CircleAdapter;
@@ -21,21 +18,10 @@ import com.bw.ymy.project.circle.bean.CircleBean;
 import com.bw.ymy.project.circle.bean.ZanBean;
 import com.bw.ymy.project.mvp.prensenter.IPresenter;
 import com.bw.ymy.project.mvp.view.IView;
-import com.hwangjr.rxbus.annotation.Subscribe;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 
 public class Circle extends Fragment implements IView {
 
@@ -53,7 +39,6 @@ public class Circle extends Fragment implements IView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         //绑定
         ButterKnife.bind(this,view);
         iPresenter=new IPresenter(this);
@@ -67,25 +52,20 @@ public class Circle extends Fragment implements IView {
         Circlelodata();
         circleAdapter = new CircleAdapter(getContext());
         circleRecyclerView.setAdapter(circleAdapter);
-
-
         //点赞
         circleAdapter.setOnclickListener(new CircleAdapter.OnClickListener() {
             @Override
             public void onClick(int whetherGreat, int i, int id) {
-
                 position = i;
                 if (whetherGreat == 1)
                 {
-                    cancelGreatData(id);
+                    cancelGreatData(id)   ;
                 }else
                 {
                     getGreatData(id);
                 }
-
             }
         });
-
     }
 //获取点赞信息 点赞
     public void getGreatData(int id){
@@ -97,11 +77,11 @@ public class Circle extends Fragment implements IView {
     public void cancelGreatData(int id){
         iPresenter.delete(String.format(Apis.Cancel,id),ZanBean.class);
     }
+
     private void Circlelodata() {
 
         iPresenter.get(Apis.quznzi,CircleBean.class);
     }
-
 
     @Override
     public void onSuccess(Object data) {
@@ -124,5 +104,11 @@ public class Circle extends Fragment implements IView {
                 }
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        iPresenter.detach();
     }
 }

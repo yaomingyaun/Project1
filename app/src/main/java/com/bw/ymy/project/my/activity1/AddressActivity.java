@@ -1,6 +1,7 @@
 package com.bw.ymy.project.my.activity1;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +29,6 @@ public class AddressActivity extends AppCompatActivity implements IView {
 
     @BindView(R.id.newAddress)
     Button newAddress;
-
     @BindView(R.id.addressRecyclerView)
     RecyclerView addressRecyclerView;
     MyAddress_Adapter myAddress_adapter;
@@ -96,7 +96,6 @@ public class AddressActivity extends AppCompatActivity implements IView {
             }
     @Override
     public void onSuccess(Object data) {
-
         if(data instanceof  AddRessBean)
         {
              addRessBean= (AddRessBean) data;
@@ -118,5 +117,11 @@ public class AddressActivity extends AppCompatActivity implements IView {
             }
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        iPresenter.detach();
     }
 }

@@ -3,7 +3,9 @@ package com.bw.ymy.project.App;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.StrictMode;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -15,6 +17,7 @@ import java.io.IOException;
 
 public class App  extends Application {
     private  static Context mcontext;
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onCreate() {
         super.onCreate();

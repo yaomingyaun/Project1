@@ -6,9 +6,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".home.activity.MoreActivity">
+
 <com.jcodecraeer.xrecyclerview.XRecyclerView
     android:id="@+id/more_xrecyvlerview"
     android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/dp_5"
+    android:layout_marginLeft="@dimen/dp_10"
+    android:layout_marginRight="@dimen/dp_10"
     android:layout_height="wrap_content"/>
+
+
 
 </LinearLayout>

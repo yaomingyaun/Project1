@@ -3,7 +3,6 @@ package com.bw.ymy.project;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -14,19 +13,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bw.ymy.project.App.Apis;
+import com.bw.ymy.project.App.NetWork;
 import com.bw.ymy.project.homeshow.ShowActivity;
 import com.bw.ymy.project.login.bean.LoginBean;
 import com.bw.ymy.project.mvp.prensenter.IPresenter;
 import com.bw.ymy.project.mvp.view.IView;
 import com.bw.ymy.project.sing.SingActivity;
-import com.facebook.drawee.generic.GenericDraweeHierarchy;
-import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
-import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.HashMap;
@@ -198,12 +194,10 @@ public class MainActivity extends AppCompatActivity implements IView {
     @OnTouch(R.id.login_icon_pass)
     public  boolean setLogin_pass(View v,MotionEvent event)
     {
-
         //按下时  密码显示
         if(event.getAction()==MotionEvent.ACTION_DOWN)
         {
             login_pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-
         }
         //抬起时  密码隐藏
         else if(event.getAction()==MotionEvent.ACTION_UP)

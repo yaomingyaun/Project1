@@ -63,7 +63,6 @@ public class Goods_Adapter extends RecyclerView.Adapter<Goods_Adapter.ViewHolder
         viewHolder.countview.setData(this,mdata,i);
         //点击勾选
         viewHolder.goods_check.setChecked(mdata.get(i).isChecked());
-
         //点击选择商品
         viewHolder.goods_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -86,7 +85,32 @@ public class Goods_Adapter extends RecyclerView.Adapter<Goods_Adapter.ViewHolder
         });
 
     }
+    //总价
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for (int x = 0; x < mdata.size(); x++) {
+            double price = mdata.get(x).getPrice();
+            int count = mdata.get(x).getCount();
+            totalPrice += price * count;
+        }
+        return totalPrice;
+    }
 
+    //总数
+    public int getTotalNumber() {
+        int totalNumber = 0;
+        for (int y = 0; y < mdata.size(); y++) {
+            int count = mdata.get(y).getCount();
+            totalNumber += count;
+        }
+        return totalNumber;
+    }
+
+    //改变数量   提交订单页
+    public void ChangeNumber(int i, int number) {
+        mdata.get(i).setCount(number);
+
+    }
     @Override
     public int getItemCount() {
         return mdata.size();
@@ -106,8 +130,6 @@ public class Goods_Adapter extends RecyclerView.Adapter<Goods_Adapter.ViewHolder
            countview=itemView.findViewById(R.id.countview);
            del=itemView.findViewById(R.id.del);
             goods_check=itemView.findViewById(R.id.goods_check);
-
-
         }
     }
     private ShopCallBackListener mShopCallBackListener;
@@ -118,5 +140,18 @@ public class Goods_Adapter extends RecyclerView.Adapter<Goods_Adapter.ViewHolder
 
     public interface ShopCallBackListener {
         void callBack(List<GoodBean.ResultBean> list);
+    }
+
+    OnCartListChangeListener mOnCartListChangeListener;
+
+    //D.方法的set
+    public void setOnCartListChangeListener(OnCartListChangeListener onCartListChangeListener) {
+        mOnCartListChangeListener = onCartListChangeListener;
+    }
+
+    public interface OnCartListChangeListener {
+        //当点击加减按钮的回调
+        void onProducNumberChange(int i, int count, int number);
+
     }
 }

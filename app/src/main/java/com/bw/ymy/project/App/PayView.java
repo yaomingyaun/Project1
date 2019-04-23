@@ -58,11 +58,19 @@ public class PayView extends LinearLayout implements View.OnClickListener{
             case R.id.shopcar_add:
                 count++;
                 shopcar_num.setText(count+"");
+                if(mShopCallBackListener!=null)
+                {
+                    mShopCallBackListener.callBack(count);
+                }
               list.get(position).setCount(count);
                 break;
             case R.id.shopcar_jian:
                 if (count > 1) {
                     count--;
+                    if(mShopCallBackListener!=null)
+                    {
+                        mShopCallBackListener.callBack(count);
+                    }
                 } else {
                     Toast.makeText(context, "数量最少为1", Toast.LENGTH_SHORT).show();
                 }
@@ -87,5 +95,14 @@ public class PayView extends LinearLayout implements View.OnClickListener{
         position=i;
         count=list.get(i).getCount();
         shopcar_num.setText(count+"");
+    }
+    private ShopCallBackListener mShopCallBackListener;
+
+    public void setListener(ShopCallBackListener listener) {
+        this.mShopCallBackListener = listener;
+    }
+
+    public interface ShopCallBackListener {
+        void callBack(int position);
     }
 }

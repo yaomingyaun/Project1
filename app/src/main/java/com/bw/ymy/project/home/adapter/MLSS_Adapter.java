@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  yao
- *   热销生活的adapter的
+ *
+ *   魔丽时尚的adapter的
  *
  */
 public class MLSS_Adapter extends RecyclerView.Adapter<MLSS_Adapter.ViewHolder>{
